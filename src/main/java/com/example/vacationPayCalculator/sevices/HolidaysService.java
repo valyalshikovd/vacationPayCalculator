@@ -9,6 +9,6 @@ public interface HolidaysService {
 
     public boolean dateIsHoliday(LocalDate date);
     public List<LocalDate> getHolidays();
-
     public List<LocalDate> getHolidays(int year);
+    public void setYearOfHolidays(int year);
 }

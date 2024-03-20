@@ -61,10 +61,18 @@ public class CalculateServiceImpl implements CalculateService {
             throw new IllegalArgumentException();
         int countWorkDays = 0;
         LocalDate currDate = date;
+
+        holidaysService.setYearOfHolidays(currDate.getYear());
+
         for(int i = 0; i < countOfDays; i++){
             if(holidaysService.dateIsHoliday(currDate)){
                 currDate = currDate.plusDays(1);
                 continue;
+            }
+
+            //если год меняется тогда, подбираем праздники из другого года
+            if(currDate.getYear() != currDate.plusDays(1).getYear()){
+                holidaysService.setYearOfHolidays(currDate.plusDays(1).getYear());
             }
             countWorkDays++;
             currDate = currDate.plusDays(1);

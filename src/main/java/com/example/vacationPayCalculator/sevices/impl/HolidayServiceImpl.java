@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class HolidayServiceImpl implements HolidaysService {
     private final RestTemplate restTemplate;
-    private final List<LocalDate> localDates;
+    private  List<LocalDate> localDates;
 
     /**
      * Конструктор, который инициализирует сервис и загружает список праздников.
@@ -42,10 +42,18 @@ public class HolidayServiceImpl implements HolidaysService {
     @Override
     public List<LocalDate> getHolidays(int year) {
         ResponseEntity<HolidayDto[]> holidays = restTemplate.getForEntity("https://date.nager.at/api/v3/publicholidays/" + year+"/RU", HolidayDto[].class);
-        System.out.println(holidays);
         if(holidays.getBody() == null)
             return new LinkedList<>();
         return Arrays.stream(holidays.getBody()).map(HolidayDto::getDate).toList();
+    }
+
+    /**
+     * Устанавливает год, для которого будут получены праздники.
+     * @param year Целое число, представляющее год.
+     * @throws IllegalArgumentException Если `year` меньше 1.
+     */
+    public void setYearOfHolidays(int year){
+        this.localDates = getHolidays(year);
     }
 
     /**

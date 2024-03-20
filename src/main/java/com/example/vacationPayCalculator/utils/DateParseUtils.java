@@ -11,7 +11,6 @@ public class DateParseUtils {
             return LocalDate.parse(date, formatter);
 
         } catch (Exception e) {
-            System.out.println(e);
             return null;
         }
     }
