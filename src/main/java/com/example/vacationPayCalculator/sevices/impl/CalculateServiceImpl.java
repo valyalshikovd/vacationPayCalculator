@@ -31,7 +31,7 @@ public class CalculateServiceImpl implements CalculateService {
             throw new IllegalArgumentException();
         if(days == null|| averageSalary == null)
             throw new IllegalArgumentException();
-        return  new SalaryDto(averageSalary  * (days / 30.0));
+        return  new SalaryDto(averageSalary  * (days / 30d));
     }
 
     /**
